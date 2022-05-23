@@ -1,1 +1,40 @@
-<p>home works!</p>
+<!-- Oinloggat läge -->
+<section *ngIf="!correctLogin">
+    <h2>Välkommen till vår nyhetsbrevssida!</h2>
+
+    <div>
+        <h3>Vänligen logga in: </h3>
+
+        <form>
+            <label for="userName">Användarnamn: </label>
+            <input type="text" name="userName" #userName>
+
+            <label for="password">Lösenord: </label>
+            <input type="password" name="password" #password>
+        </form>
+        <button (click)="checkUser(userName.value, password.value)">Logga in</button>
+
+        <p id="wrongLoginP" *ngIf="wrongLogin">Du har angett fel inloggningsuppgifter</p>
+
+        <p>Är du ny här? Klicka <span (click)="createNewUser()">här</span> för att skapa en ny användare</p>
+    </div>
+
+    <div *ngIf="createUser">
+        <h3>Skapa ny användare: </h3>
+
+        <form>
+            <label for="userName">Välj användarnamn:</label>
+            <input type="text" name="userName" #newUserName>
+
+            <label for="password">Välj lösenord:</label>
+            <input type="password" name="password" #newPassword>
+        </form>
+        <button (click)="saveNewUser(newUserName.value, newPassword.value)">Skapa ny användare</button>
+    </div>
+</section>
+
+<!-- Inloggat läge -->
+<section *ngIf="correctLogin">
+    <h2>Välkommen till inloggad läge!</h2>
+    <button (click)="logOut()">Logga ut</button>
+</section>
