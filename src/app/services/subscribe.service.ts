@@ -5,26 +5,32 @@ import { IUser } from '../models/IUser';
 @Injectable({
   providedIn: 'root'
 })
-export class CheckUserService {
+export class SubscribeService {
+  
+  private subscribeData = new Subject<any>();
+  subscribeData$: Observable<any> = this.subscribeData.asObservable();
 
-  private userData = new Subject<any>();
-  userData$: Observable<any> = this.userData.asObservable();
-
-  user: IUser[] = [];
+  // user: IUser[] = [];
   
   constructor() { }
 
   // Kontrollera om användare har angett rätt uppgifter
-  checkUser(user: IUser) {
+  subscribe(user: any) {
 
     console.log(user);
 
-    fetch("http://localhost:3000/users", {
+    const subscriber = {
+      "_id": user.userId,
+      "email": user.email,
+      "subscriber": true
+    }
+
+    fetch("http://localhost:3000/users/subscribe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(subscriber),
     })
     .then(response => response.json())
     .then(data => {
@@ -33,14 +39,11 @@ export class CheckUserService {
 
       if (data.message == "success") {
 
-        // Spara userId till localStorage
-        localStorage.setItem("userId", data.userId)
-        localStorage.setItem("subscriber", data.subscriber)
-        return this.userData.next("Message: OK")
+        return this.subscribeData.next("Message: OK")
 
       } else {
 
-        return this.userData.next("Message: Error")
+        return this.subscribeData.next("Message: Error")
 
       }
       
@@ -51,4 +54,5 @@ export class CheckUserService {
       console.log("Error: " + error)
     })
   }
+
 }

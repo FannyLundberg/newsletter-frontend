@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/models/IUser';
 import { AddUserService } from 'src/app/services/add-user.service';
 import { CheckUserService } from 'src/app/services/check-user.service';
+import { SubscribeService } from 'src/app/services/subscribe.service';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,18 @@ export class HomeComponent implements OnInit {
   userData: any;
   wrongLogin: boolean = false;
   correctLogin: boolean = false;
+  subscribeData: any;
+  subscriber: boolean = false;
 
-  constructor(private checkUserService: CheckUserService, private addUserService: AddUserService) { }
+  constructor(
+    private checkUserService: CheckUserService, 
+    private addUserService: AddUserService,
+    private subscribeService: SubscribeService
+    ) { }
 
   ngOnInit(): void {
 
+    // Check om inloggningsuppgifterna stämde
     this.checkUserService.userData$.subscribe(data => {
       this.userData = data;
 
@@ -30,6 +38,25 @@ export class HomeComponent implements OnInit {
         console.log("Felaktiga inloggningsuppgifter")
         this.wrongLogin = true;
         this.correctLogin = false;
+      }
+
+      // if (this.userData.subscriber == true) {
+      //   this.subscriber = true;
+      // } else {
+      //   this.subscriber = false;
+      // }
+    })
+
+    // Check om status för prenumeration har förändrats
+    this.subscribeService.subscribeData$.subscribe(subscribeInfo => {
+      this.subscribeData = subscribeInfo;
+
+      if (this.subscribeData === "Message: OK") {
+        console.log("Du prenumererar nu!")
+        this.subscriber = true;
+      } else {
+        console.log("Något gick fel när du skulle börja prenumerera")
+        this.subscriber = false;
       }
     })
 
@@ -67,10 +94,28 @@ export class HomeComponent implements OnInit {
 
     const newUser = {
       "username": newUserName,
-      "password": newPassword
+      "password": newPassword,
+      "email": "",
+      "subscriber": false
     }
 
     this.addUserService.addUser(newUser)
+  }
+
+
+  // Klick på submit för att prenumerera
+  subscribe(email: string) {
+    console.log("Klick på submit för prenumeration")
+
+    const userId = localStorage.getItem("userId");
+
+    const subscriber = {
+      "userId": userId,
+      "email": email,
+      "subscriber": true
+    }
+
+    this.subscribeService.subscribe(subscriber)
   }
 
 
@@ -79,6 +124,7 @@ export class HomeComponent implements OnInit {
     console.log("Klickat på Logga ut-knappen")
     
     localStorage.removeItem("userId");
+    localStorage.removeItem("subscriber");
 
     this.ngOnInit();
   }

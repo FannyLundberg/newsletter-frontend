@@ -36,5 +36,24 @@
 <!-- Inloggat läge -->
 <section *ngIf="correctLogin">
     <h2>Välkommen till inloggad läge!</h2>
+
+    <div *ngIf="!subscriber">
+        <p>
+            Vill du prenumerera på vårt nyhetsbrev? <br><br>
+            Fyll i din mailadress nedan så aktiveras din prenumeration. <br><br>
+        </p>
+
+
+        <input type="text" #email placeholder="Email">
+        <button id="subscribeBtn" (click)="subscribe(email.value)">Godkänn</button>
+
+        <p>Du kan när som helst avsluta din prenumeration.</p>
+    </div>
+
+    <div *ngIf="subscriber">
+        <p>Du prenumererar nu på vårt nyhetsbrev!</p>
+        <p>Vill du avsluta din prenumeration?</p>
+    </div>
+
     <button (click)="logOut()">Logga ut</button>
 </section>

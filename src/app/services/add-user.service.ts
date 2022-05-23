@@ -14,7 +14,9 @@ export class AddUserService {
     
     const addUser = {
       "username": newUser.username,
-      "password": newUser.password
+      "password": newUser.password,
+      "email": "",
+      "subscriber": false
     }
 
     fetch("http://localhost:3000/users/newuser", {
