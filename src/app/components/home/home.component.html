@@ -51,8 +51,9 @@
     </div>
 
     <div *ngIf="subscriber">
-        <p>Du prenumererar nu på vårt nyhetsbrev!</p>
+        <p>Du prenumererar på vårt nyhetsbrev!</p>
         <p>Vill du avsluta din prenumeration?</p>
+        <button id="unsubscribeBtn" (click)="unsubscribe()">Avbryt prenumeration</button>
     </div>
 
     <button (click)="logOut()">Logga ut</button>

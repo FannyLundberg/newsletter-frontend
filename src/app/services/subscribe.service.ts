@@ -14,7 +14,7 @@ export class SubscribeService {
   
   constructor() { }
 
-  // Kontrollera om användare har angett rätt uppgifter
+  // Posta användarens email och uppdatera status på prenumerant
   subscribe(user: any) {
 
     console.log(user);
@@ -38,19 +38,13 @@ export class SubscribeService {
       console.log(data)
 
       if (data.message == "success") {
-
         return this.subscribeData.next("Message: OK")
-
       } else {
-
         return this.subscribeData.next("Message: Error")
-
       }
-      
     })
     // Vid error
     .catch((error) => {
-
       console.log("Error: " + error)
     })
   }

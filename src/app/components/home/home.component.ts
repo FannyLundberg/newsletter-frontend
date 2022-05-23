@@ -3,6 +3,7 @@ import { IUser } from 'src/app/models/IUser';
 import { AddUserService } from 'src/app/services/add-user.service';
 import { CheckUserService } from 'src/app/services/check-user.service';
 import { SubscribeService } from 'src/app/services/subscribe.service';
+import { UnsubscribeService } from 'src/app/services/unsubscribe.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private checkUserService: CheckUserService, 
     private addUserService: AddUserService,
-    private subscribeService: SubscribeService
+    private subscribeService: SubscribeService,
+    private unSubscribeService: UnsubscribeService
     ) { }
 
   ngOnInit(): void {
@@ -39,12 +41,6 @@ export class HomeComponent implements OnInit {
         this.wrongLogin = true;
         this.correctLogin = false;
       }
-
-      // if (this.userData.subscriber == true) {
-      //   this.subscriber = true;
-      // } else {
-      //   this.subscriber = false;
-      // }
     })
 
     // Check om status för prenumeration har förändrats
@@ -60,8 +56,17 @@ export class HomeComponent implements OnInit {
       }
     })
 
+    // Check om det finns något i localStorage
     if (localStorage.length > 0) {
       this.correctLogin = true;
+
+      let loggedInSubscriber = localStorage.getItem("subscriber")
+
+      if (loggedInSubscriber === "true") {
+        console.log("Prenumerant")
+        this.subscriber = true;
+      } 
+
     } else {
       this.correctLogin = false;
     }
@@ -78,6 +83,8 @@ export class HomeComponent implements OnInit {
     }
 
     this.checkUserService.checkUser(this.user);
+
+    this.ngOnInit();
   }
 
 
@@ -115,7 +122,26 @@ export class HomeComponent implements OnInit {
       "subscriber": true
     }
 
-    this.subscribeService.subscribe(subscriber)
+    this.subscribeService.subscribe(subscriber);
+    localStorage.setItem("subscriber", "true")
+  }
+
+  // Klick på Avbryt prenumeration
+  unsubscribe() {
+    console.log("Klick på Avbryt prenumeration")
+
+    const userId = localStorage.getItem("userId");
+
+    const unSubscriber = {
+      "userId": userId,
+      "email": "",
+      "subscriber": false
+    }
+
+    this.unSubscribeService.unsubscribe(unSubscriber);
+    localStorage.setItem("subscriber", "false");
+
+    this.subscriber = false;
   }
 
 
@@ -123,8 +149,7 @@ export class HomeComponent implements OnInit {
   logOut() {
     console.log("Klickat på Logga ut-knappen")
     
-    localStorage.removeItem("userId");
-    localStorage.removeItem("subscriber");
+    localStorage.clear();
 
     this.ngOnInit();
   }
