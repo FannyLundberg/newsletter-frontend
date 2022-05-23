@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    max-height: fit-content;
+    background-color: rgb(30, 70, 105);
+}
+
+header {
+    width: 100vw;
+    height: 10vh;
+    background-color: rgba(255, 255, 255, 0.479);
+}
+
+main {
+    width: 100vw;
+    min-height: 85vh;
+    max-height: fit-content;
+    color: white;
+}
+
+footer {
+    width: 100vw;
+    height: 5vh;
+    background-color: rgba(255, 255, 255, 0.479);
+}
