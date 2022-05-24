@@ -15,7 +15,6 @@ export class AddUserService {
     const addUser = {
       "username": newUser.username,
       "password": newUser.password,
-      "email": "",
       "subscriber": false
     }
 

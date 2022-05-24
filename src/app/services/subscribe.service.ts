@@ -21,7 +21,6 @@ export class SubscribeService {
 
     const subscriber = {
       "_id": user.userId,
-      "email": user.email,
       "subscriber": true
     }
 

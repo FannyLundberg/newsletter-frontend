@@ -111,14 +111,13 @@ export class HomeComponent implements OnInit {
 
 
   // Klick på submit för att prenumerera
-  subscribe(email: string) {
+  subscribe() {
     console.log("Klick på submit för prenumeration")
 
     const userId = localStorage.getItem("userId");
 
     const subscriber = {
       "userId": userId,
-      "email": email,
       "subscriber": true
     }
 

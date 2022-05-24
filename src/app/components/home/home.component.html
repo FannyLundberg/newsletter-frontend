@@ -6,7 +6,7 @@
         <h3>Vänligen logga in: </h3>
 
         <form>
-            <label for="userName">Användarnamn: </label>
+            <label for="userName">Mailadress: </label>
             <input type="text" name="userName" #userName>
 
             <label for="password">Lösenord: </label>
@@ -23,7 +23,7 @@
         <h3>Skapa ny användare: </h3>
 
         <form>
-            <label for="userName">Välj användarnamn:</label>
+            <label for="userName">Mailadress:</label>
             <input type="text" name="userName" #newUserName>
 
             <label for="password">Välj lösenord:</label>
@@ -44,8 +44,8 @@
         </p>
 
 
-        <input type="text" #email placeholder="Email">
-        <button id="subscribeBtn" (click)="subscribe(email.value)">Godkänn</button>
+        <!-- <input type="text" #email placeholder="Email"> -->
+        <button id="subscribeBtn" (click)="subscribe()">Prenumerera</button>
 
         <p>Du kan när som helst avsluta din prenumeration.</p>
     </div>
