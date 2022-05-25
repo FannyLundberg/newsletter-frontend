@@ -18,7 +18,7 @@ export class AddUserService {
       "subscriber": false
     }
 
-    fetch("http://localhost:3000/users/newuser", {
+    fetch("https://newsletter-express-nodejs.herokuapp.com//users/newuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

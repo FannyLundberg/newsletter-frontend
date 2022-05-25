@@ -22,7 +22,7 @@ export class UnsubscribeService {
       "subscriber": false
     }
 
-    fetch("http://localhost:3000/users/unsubscribe", {
+    fetch("https://newsletter-express-nodejs.herokuapp.com/users/unsubscribe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
