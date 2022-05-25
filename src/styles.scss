@@ -8,23 +8,33 @@ body {
     min-height: 100vh;
     max-height: fit-content;
     background-color: rgb(30, 70, 105);
+    background-image: url(assets/vatten.jpg);
+    background-size: cover;
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
     width: 100vw;
     height: 10vh;
-    background-color: rgba(255, 255, 255, 0.479);
+    background-color: rgba(255, 255, 255, 0.11);
+    border-bottom: 1px rgba(231, 231, 231, 0.644) solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 main {
     width: 100vw;
     min-height: 85vh;
     max-height: fit-content;
-    color: white;
+    padding: 4%;
 }
 
 footer {
     width: 100vw;
     height: 5vh;
-    background-color: rgba(255, 255, 255, 0.479);
+    background-color: rgba(255, 255, 255, 0.11);
+    border-top: 1px rgba(231, 231, 231, 0.644) solid;
+    display: flex;
 }

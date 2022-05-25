@@ -9,12 +9,10 @@ export class SubscribeService {
   
   private subscribeData = new Subject<any>();
   subscribeData$: Observable<any> = this.subscribeData.asObservable();
-
-  // user: IUser[] = [];
   
   constructor() { }
 
-  // Posta användarens email och uppdatera status på prenumerant
+  // Uppdaterar status på prenumerant
   subscribe(user: any) {
 
     console.log(user);
@@ -42,7 +40,6 @@ export class SubscribeService {
         return this.subscribeData.next("Message: Error")
       }
     })
-    // Vid error
     .catch((error) => {
       console.log("Error: " + error)
     })

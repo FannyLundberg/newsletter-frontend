@@ -14,12 +14,15 @@
         </form>
         <button (click)="checkUser(userName.value, password.value)">Logga in</button>
 
-        <p id="wrongLoginP" *ngIf="wrongLogin">Du har angett fel inloggningsuppgifter</p>
+        <p id="wrongLoginP" *ngIf="wrongLogin">Du har angett fel inloggningsuppgifter, <br>vänligen prova igen</p>
 
         <p>Är du ny här? Klicka <span (click)="createNewUser()">här</span> för att skapa en ny användare</p>
     </div>
 
+    <p *ngIf="newUser">Du har nu skapat ett användarkonto!</p>
+
     <div *ngIf="createUser">
+
         <h3>Skapa ny användare: </h3>
 
         <form>
@@ -29,7 +32,9 @@
             <label for="password">Välj lösenord:</label>
             <input type="password" name="password" #newPassword>
         </form>
+
         <button (click)="saveNewUser(newUserName.value, newPassword.value)">Skapa ny användare</button>
+    
     </div>
 </section>
 
@@ -39,19 +44,17 @@
 
     <div *ngIf="!subscriber">
         <p>
-            Vill du prenumerera på vårt nyhetsbrev? <br><br>
-            Fyll i din mailadress nedan så aktiveras din prenumeration. <br><br>
+            Vill du få vårt nyhetsbrev? <br><br>
+            Klicka på Prenumerera för att starta prenumerationen.<br><br>
         </p>
 
-
-        <!-- <input type="text" #email placeholder="Email"> -->
         <button id="subscribeBtn" (click)="subscribe()">Prenumerera</button>
 
         <p>Du kan när som helst avsluta din prenumeration.</p>
     </div>
 
     <div *ngIf="subscriber">
-        <p>Du prenumererar på vårt nyhetsbrev!</p>
+        <p>Vad kul att du prenumererar på vårt nyhetsbrev!</p>
         <p>Vill du avsluta din prenumeration?</p>
         <button id="unsubscribeBtn" (click)="unsubscribe()">Avbryt prenumeration</button>
     </div>

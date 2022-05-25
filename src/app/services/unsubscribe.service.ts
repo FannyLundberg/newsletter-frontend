@@ -40,7 +40,6 @@ export class UnsubscribeService {
         return this.unsubscribeData.next("Message: Error")
       }
     })
-    // Vid error
     .catch((error) => {
       console.log("Error: " + error)
     })

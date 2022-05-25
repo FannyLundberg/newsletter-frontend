@@ -35,8 +35,8 @@ export class CheckUserService {
 
         // Spara userId till localStorage
         localStorage.setItem("userId", data.userId)
-        localStorage.setItem("subscriber", data.subscriber)
-        return this.userData.next("Message: OK")
+
+        return this.userData.next(data)
 
       } else {
 
@@ -45,7 +45,6 @@ export class CheckUserService {
       }
       
     })
-    // Vid error
     .catch((error) => {
 
       console.log("Error: " + error)

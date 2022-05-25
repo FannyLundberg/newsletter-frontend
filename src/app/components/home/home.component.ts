@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from 'src/app/models/IUser';
 import { AddUserService } from 'src/app/services/add-user.service';
 import { CheckUserService } from 'src/app/services/check-user.service';
+import { GetUserStatusService } from 'src/app/services/get-user-status.service';
 import { SubscribeService } from 'src/app/services/subscribe.service';
 import { UnsubscribeService } from 'src/app/services/unsubscribe.service';
 
@@ -13,18 +13,20 @@ import { UnsubscribeService } from 'src/app/services/unsubscribe.service';
 export class HomeComponent implements OnInit {
 
   createUser: boolean = false;
-  user: any = [];
+  user: any;
   userData: any;
   wrongLogin: boolean = false;
   correctLogin: boolean = false;
   subscribeData: any;
   subscriber: boolean = false;
+  newUser: boolean = false;
 
   constructor(
     private checkUserService: CheckUserService, 
     private addUserService: AddUserService,
     private subscribeService: SubscribeService,
-    private unSubscribeService: UnsubscribeService
+    private unSubscribeService: UnsubscribeService,
+    private getUserStatusService: GetUserStatusService
     ) { }
 
   ngOnInit(): void {
@@ -33,43 +35,30 @@ export class HomeComponent implements OnInit {
     this.checkUserService.userData$.subscribe(data => {
       this.userData = data;
 
-      if (this.userData === "Message: OK") {
+      console.log(this.userData)
+
+      if (this.userData.message === "success") {
+        
         console.log("Korrekt inloggningsuppgifter")
         this.correctLogin = true; 
+
+        this.checkSubscribtion();
+       
       } else {
         console.log("Felaktiga inloggningsuppgifter")
+        
         this.wrongLogin = true;
         this.correctLogin = false;
-      }
-    })
-
-    // Check om status för prenumeration har förändrats
-    this.subscribeService.subscribeData$.subscribe(subscribeInfo => {
-      this.subscribeData = subscribeInfo;
-
-      if (this.subscribeData === "Message: OK") {
-        console.log("Du prenumererar nu!")
-        this.subscriber = true;
-      } else {
-        console.log("Något gick fel när du skulle börja prenumerera")
-        this.subscriber = false;
       }
     })
 
     // Check om det finns något i localStorage
     if (localStorage.length > 0) {
       this.correctLogin = true;
-
-      let loggedInSubscriber = localStorage.getItem("subscriber")
-
-      if (loggedInSubscriber === "true") {
-        console.log("Prenumerant")
-        this.subscriber = true;
-      } 
-
+      this.checkSubscribtion();
     } else {
       this.correctLogin = false;
-    }
+    }  
   }
 
 
@@ -83,8 +72,26 @@ export class HomeComponent implements OnInit {
     }
 
     this.checkUserService.checkUser(this.user);
+  }
 
-    this.ngOnInit();
+
+  // Check om det är en prenumerant eller ej
+  checkSubscribtion() {
+    let userId = localStorage.getItem("userId")
+    this.getUserStatusService.isSubscriber(userId);
+
+    this.getUserStatusService.subscribeInfo$.subscribe(data => {
+      this.subscribeData = data;
+
+      if (this.subscribeData.subscriber == true) {
+        console.log("Du är en prenumerant")
+        this.subscriber = true;
+
+      } else {
+        console.log("Du är inte en prenumerant")
+        this.subscriber = false;
+      }
+    })
   }
 
 
@@ -107,6 +114,8 @@ export class HomeComponent implements OnInit {
     }
 
     this.addUserService.addUser(newUser)
+
+    this.newUser = true;
   }
 
 
@@ -122,8 +131,9 @@ export class HomeComponent implements OnInit {
     }
 
     this.subscribeService.subscribe(subscriber);
-    localStorage.setItem("subscriber", "true")
+    this.subscriber = true;
   }
+
 
   // Klick på Avbryt prenumeration
   unsubscribe() {
@@ -138,8 +148,6 @@ export class HomeComponent implements OnInit {
     }
 
     this.unSubscribeService.unsubscribe(unSubscriber);
-    localStorage.setItem("subscriber", "false");
-
     this.subscriber = false;
   }
 
@@ -149,7 +157,6 @@ export class HomeComponent implements OnInit {
     console.log("Klickat på Logga ut-knappen")
     
     localStorage.clear();
-
     this.ngOnInit();
   }
 }
