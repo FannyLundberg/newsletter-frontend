@@ -38,3 +38,10 @@ footer {
     border-top: 1px rgba(231, 231, 231, 0.644) solid;
     display: flex;
 }
+
+// Skärmar större än 1024px
+@media screen and (min-width: 1024px) {
+    main {
+        padding: 1%;
+    }
+}
