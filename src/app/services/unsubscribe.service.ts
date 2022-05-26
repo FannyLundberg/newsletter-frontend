@@ -22,7 +22,7 @@ export class UnsubscribeService {
       "subscriber": false
     }
 
-    fetch("https://newsletter-express-nodejs.herokuapp.com/users/unsubscribe", {
+    fetch("https://node-newsletter.azurewebsites.net/users/unsubscribe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

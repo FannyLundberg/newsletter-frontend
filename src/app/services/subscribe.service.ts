@@ -22,7 +22,7 @@ export class SubscribeService {
       "subscriber": true
     }
 
-    fetch("https://newsletter-express-nodejs.herokuapp.com/users/subscribe", {
+    fetch("https://node-newsletter.azurewebsites.net/users/subscribe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

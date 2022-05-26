@@ -19,7 +19,7 @@ export class CheckUserService {
 
     console.log(user);
 
-    fetch("https://newsletter-express-nodejs.herokuapp.com/users", {
+    fetch("https://node-newsletter.azurewebsites.net/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

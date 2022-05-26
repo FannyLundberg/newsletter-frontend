@@ -157,6 +157,11 @@ export class HomeComponent implements OnInit {
     console.log("Klickat på Logga ut-knappen")
     
     localStorage.clear();
+
+    this.newUser = false;
+    this.createUser = false;
+    this.wrongLogin = false;
+
     this.ngOnInit();
   }
 }

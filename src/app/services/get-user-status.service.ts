@@ -22,7 +22,7 @@ export class GetUserStatusService {
 
     console.log(checkIfSubscriber)
 
-    fetch("https://newsletter-express-nodejs.herokuapp.com/users/subscription", {
+    fetch("https://node-newsletter.azurewebsites.net/users/subscription", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

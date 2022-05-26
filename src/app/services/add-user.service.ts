@@ -18,7 +18,7 @@ export class AddUserService {
       "subscriber": false
     }
 
-    fetch("https://newsletter-express-nodejs.herokuapp.com//users/newuser", {
+    fetch("https://node-newsletter.azurewebsites.net/users/newuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
