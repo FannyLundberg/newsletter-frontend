@@ -4,10 +4,10 @@ Backend i NodeJS och Express (länk till repo: https://github.com/FannyLundberg/
 Databas i MongoDB
 
 ### Applikationen körs genom:
-npm install
-ng serve
+#npm install
+#ng serve
 
-Befintligt användarnamn: 
+##Befintligt användarnamn: 
 Användarnamn/mailadress: test@test.se
 Lösenord: test@test.se
 
